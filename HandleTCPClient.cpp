@@ -97,8 +97,21 @@ void HandleTCPClient(int clntSocket, string doc_root)
             for (int i = 0; i < response.length(); i++)
                 sendBuffer[i] = response.at(i);
 //            fails for large
-            if (send(clntSocket, &sendBuffer , sizeof(sendBuffer) , 0) != sizeof(sendBuffer))
-                DieWithError("send() failed");
+//            if (send(clntSocket, &sendBuffer , sizeof(sendBuffer) , 0) != sizeof(sendBuffer))
+//                DieWithError("send() failed");
+            
+            const char *responseBuffer = response.c_str();
+            size_t len = response.size();
+            ssize_t sentSoFar = 0;
+            while ((size_t) sentSoFar < len) {
+                int num = (int) send(clntSocket, &responseBuffer, SNDBUFSIZE, 0);
+                if (num  < 0)
+                    DieWithError("Error Sending");
+
+                sentSoFar += num;
+                responseBuffer += sentSoFar;
+            }
+
             
             if (state.close) // if the Connection: close is true, then close the connection
             {

@@ -36,6 +36,7 @@ void WebFramer::createMessages()
 bool WebFramer::hasMessage() const
 {
     return messages.size() > 0 ? true : false;
+    
 }
 
 string WebFramer::topMessage() const

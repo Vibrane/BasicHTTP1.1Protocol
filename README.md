@@ -1,9 +1,3 @@
-# cse124-project1
+My implementation of CSE 124 HTTP 1.1 Protocol
 
-Basic skeleton code for CSE 124's Project 1
-
-Starter code copyright (c) 2017, 2018 George Porter.  All Rights Reserved.
-
-## To build
-
-make
+run by ./httpd [port] [docroot]
